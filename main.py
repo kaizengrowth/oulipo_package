@@ -3,6 +3,8 @@ from data_handling import load_data, filter_verbs
 from text_processing import load_nlp_model, process_text
 from advanced_text_processing import lemmatize_verbs, find_verb_locations, adjust_verb_locations
 from rhyme_processing import replace_every_seventh_with_random_rhyme
+from music_generator import create_music_with_music21, get_every_seventh_character
+from stanza_scrambler import shuffle_every_other_word_and_rotate
 
 
 def main():
@@ -16,6 +18,10 @@ def main():
                         help='Apply lemmatization to processed text')
     parser.add_argument('--rhyme', action='store_true',
                         help='Replace every seventh word with a rhyme')
+    parser.add_argument('--generate_music', action='store_true',
+                        help='Generate music from the text.')
+    parser.add_argument('--scramble_stanzas', action='store_true',
+                        help='Scramble the text with text scrambler.')
 
     args = parser.parse_args()
 
@@ -50,6 +56,15 @@ def main():
         transformed_text = replace_every_seventh_with_random_rhyme(text)
         print("Transformed Text:")
         print(transformed_text)
+
+    if args.generate_music:
+        chars = get_every_seventh_character(args.text)
+        create_music_with_music21(chars)
+
+    if args.scramble_stanzas:
+        variations = shuffle_every_other_word_and_rotate(args.text)
+        for i, variation in enumerate(variations, 1):
+            print(f"Variation {i}:\n{variation}\n")
 
 
 if __name__ == "__main__":

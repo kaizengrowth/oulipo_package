@@ -12,8 +12,7 @@ setup(
     long_description_content_type='text/markdown',
     install_requires=[
         'pandas',
-        'json',
-        'spacy'
+        'spacy>=3.0'
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
